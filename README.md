@@ -170,9 +170,9 @@ Không commit hoặc push trực tiếp lên `main` khi đang phát triển ch�
 ## Dữ liệu dùng chung dự kiến
 
 - `KhachHang`: `maKhachHang`, `hoTen`, `soDienThoai`, `email`, `loaiKhach`
-- `ChuyenXe`: `maChuyenXe`, `diemDi`, `diemDen`, `thoiGianKhoiHanh`, `bienSoXe`, danh sách ghế
+- `ChuyenXe`: `maChuyenXe`, `diemDi`, `diemDen`, `thoiGianKhoiHanh`, `bienSoXe`, `danhSachGhe`
 - `Ghe`: `maGhe`, `soGhe`, `loaiGhe`, `trangThaiGhe`
-- `Ve`: `maVe`, thông tin khách hàng, chuyến xe, ghế, `giaVeCuoiCung`, `trangThaiThanhToan`
+- `Ve`: `maVe`, `maKhachHang`, `maChuyenXe`, `maGhe`, `giaVeCuoiCung`, `trangThaiThanhToan`
 - `ThanhToan`: `maThanhToan`, `maVe`, `phuongThuc`, `soTien`
 
 Các giá trị trạng thái, quy tắc tính giá và định dạng lưu file sẽ được thống nhất trong `docs/` trước khi các chức năng sử dụng chung.
