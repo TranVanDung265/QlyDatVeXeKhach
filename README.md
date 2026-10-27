@@ -1,7 +1,6 @@
 # QlyDatVeXeKhach – Hệ thống đặt vé xe khách
 
-Website quản lý khách hàng, chuyến xe, ghế, đặt vé và thanh toán. Dữ liệu được lưu bằng file, không dùng SQL.
-
+Website quản lý khách hàng, chuyến xe, ghế, đặt vé và thanh toán.
 ## Công nghệ và công cụ
 
 - Backend: Java 8
@@ -20,23 +19,28 @@ QlyDatVeXeKhach/
 │   └── src/main/
 │       ├── java/com/group3/busticket/
 │       │   ├── Main.java
-│       │   ├── model/
-│       │   ├── customers/
-│       │   ├── trips/
-│       │   ├── seats/
-│       │   ├── bookings/
-│       │   ├── payments/
-│       │   └── common/
+│       │   ├── model/     # Dữ liệu dùng chung
+│       │   │   ├── KhachHang.java
+│       │   │   ├── ChuyenXe.java
+│       │   │   ├── Ghe.java
+│       │   │   ├── Ve.java
+│       │   │   └── ThanhToan.java
+│       │   ├── customers/     # Thành viên 2: Quản lý khách hàng
+│       │   ├── trips/         # Thành viên 3: Quản lý chuyến xe
+│       │   ├── seats/         # Thành viên 4: Quản lý ghế
+│       │   ├── bookings/      # Thành viên 1: Đặt vé và xem vé đã bán trong ngày
+│       │   ├── payments/      # Thành viên 5: Thanh toán
+│       │   └── common/        # Đọc/ghi file, tạo mã, tiện ích chung
 │       └── resources/
 ├── frontend/src/
-│   ├── components/
-│   ├── customers/
-│   ├── trips/
-│   ├── seats/
-│   ├── bookings/
-│   └── payments/
-├── data/
-├── docs/
+│   ├── components/            # Menu, thanh điều hướng dùng chung
+│   ├── customers/             # Thành viên 2: Giao diện khách hàng
+│   ├── trips/                 # Thành viên 3: Giao diện chuyến xe
+│   ├── seats/                 # Thành viên 4: Giao diện ghế
+│   ├── bookings/              # Thành viên 1: Giao diện đặt vé, vé bán trong ngày
+│   └── payments/              # Thành viên 5: Giao diện thanh toán
+├── data/                      # File lưu dữ liệu
+├── docs/                      # Báo cáo, hướng dẫn API, sơ đồ lớp
 └── README.md
 ```
 
