@@ -6,24 +6,21 @@ public class Ve {
     private String maKhachHang;
     private String maChuyenXe;
     private String maGhe;
-    // Giá tiền tính bằng VND.
     private long giaVeCuoiCung;
-    // Giá trị dự kiến: CHUA_THANH_TOAN hoặc DA_THANH_TOAN.
     private String trangThaiThanhToan;
-    // Thời điểm đặt vé, định dạng yyyy-MM-dd HH:mm.
+    // Định dạng: yyyy-MM-dd HH:mm.
     private String thoiGianDat;
 
     public Ve() {
     }
 
-    // Constructor cũ, giữ lại để tương thích với code hiện có.
+    // Giữ constructor cũ để tương thích với code hiện có.
     public Ve(String maVe, String maKhachHang, String maChuyenXe, String maGhe,
               long giaVeCuoiCung, String trangThaiThanhToan) {
-        this(maVe, maKhachHang, maChuyenXe, maGhe,
-                giaVeCuoiCung, trangThaiThanhToan, null);
+        this(maVe, maKhachHang, maChuyenXe, maGhe, giaVeCuoiCung,
+                trangThaiThanhToan, null);
     }
 
-    // Constructor mới có thời điểm đặt vé.
     public Ve(String maVe, String maKhachHang, String maChuyenXe, String maGhe,
               long giaVeCuoiCung, String trangThaiThanhToan, String thoiGianDat) {
         this.maVe = maVe;
@@ -39,13 +36,14 @@ public class Ve {
     public void setMaVe(String maVe) { this.maVe = maVe; }
 
     public String getMaKhachHang() { return maKhachHang; }
-    public void setMaKhachHang(String maKhachHang) { this.maKhachHang = maKhachHang; }
+    public void setMaKhachHang(String maKhachHang) {
+        this.maKhachHang = maKhachHang;
+    }
 
     public String getMaChuyenXe() { return maChuyenXe; }
-    public void setMaChuyenXe(String maChuyenXe) { this.maChuyenXe = maChuyenHang; }
-
-    public String getMaChuyenXe() { return maChuyenXe; }
-    public void setMaChuyenXe(String maChuyenXe) { this.maChuyenXe = maChuyenXe; }
+    public void setMaChuyenXe(String maChuyenXe) {
+        this.maChuyenXe = maChuyenXe;
+    }
 
     public String getMaGhe() { return maGhe; }
     public void setMaGhe(String maGhe) { this.maGhe = maGhe; }
