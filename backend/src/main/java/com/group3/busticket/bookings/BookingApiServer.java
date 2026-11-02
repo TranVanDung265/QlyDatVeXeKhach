@@ -7,6 +7,10 @@ import com.group3.busticket.model.Ghe;
 import com.group3.busticket.model.Ve;
 import com.group3.busticket.payments.PaymentApiHandler;
 import com.group3.busticket.payments.PaymentService;
+import com.group3.busticket.seats.SeatApiHandler;
+import com.group3.busticket.seats.SeatService;
+import com.group3.busticket.trips.TripApiHandler;
+import com.group3.busticket.trips.TripService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
@@ -26,10 +30,12 @@ public class BookingApiServer {
     private final BookingService bookingService;
     private final KhachHangService khachHangService;
     private final PaymentService paymentService;
+    private final TripService tripService;
+    private final SeatService seatService;
 
     /** Dùng khi chỉ cần chạy các API đặt vé hiện có. */
     public BookingApiServer(BookingService bookingService) {
-        this(bookingService, null, null);
+        this(bookingService, null, null, null, null);
     }
 
     /** Dùng khi cần chạy thêm API quản lý khách hàng. */
@@ -37,7 +43,7 @@ public class BookingApiServer {
             BookingService bookingService,
             KhachHangService khachHangService
     ) {
-        this(bookingService, khachHangService, null);
+        this(bookingService, khachHangService, null, null, null);
     }
 
     /** Dùng khi chạy đồng thời API đặt vé, khách hàng và thanh toán. */
@@ -45,6 +51,17 @@ public class BookingApiServer {
             BookingService bookingService,
             KhachHangService khachHangService,
             PaymentService paymentService
+    ) {
+        this(bookingService, khachHangService, paymentService, null, null);
+    }
+
+    /** Chạy API đặt vé, khách hàng, thanh toán, chuyến xe và ghế. */
+    public BookingApiServer(
+            BookingService bookingService,
+            KhachHangService khachHangService,
+            PaymentService paymentService,
+            TripService tripService,
+            SeatService seatService
     ) {
         if (bookingService == null) {
             throw new IllegalArgumentException(
@@ -54,6 +71,8 @@ public class BookingApiServer {
         this.bookingService = bookingService;
         this.khachHangService = khachHangService;
         this.paymentService = paymentService;
+        this.tripService = tripService;
+        this.seatService = seatService;
     }
 
     public void start() throws IOException {
@@ -62,8 +81,17 @@ public class BookingApiServer {
         // Đường dẫn này cụ thể hơn /api/bookings nên sẽ xử lý GET danh sách hôm nay.
         server.createContext("/api/bookings/today", this::handleTodayBookings);
         server.createContext("/api/bookings", this::handleBooking);
-        server.createContext("/api/trips", this::handleTrips);
-        server.createContext("/api/trips/", this::handleTripSeats);
+        if (tripService != null && seatService != null) {
+            server.createContext("/api/trips", new TripApiHandler(tripService));
+            server.createContext(
+                    "/api/trips/",
+                    new SeatApiHandler(tripService, seatService)
+            );
+        } else {
+            // Tương thích với constructor cũ nếu không truyền riêng các service.
+            server.createContext("/api/trips", this::handleTrips);
+            server.createContext("/api/trips/", this::handleTripSeats);
+        }
 
         if (khachHangService != null) {
             server.createContext(

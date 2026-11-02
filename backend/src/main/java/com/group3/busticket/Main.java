@@ -135,7 +135,9 @@ public class Main {
         BookingApiServer apiServer = new BookingApiServer(
                 bookingService,
                 khachHangService,
-                paymentService
+                paymentService,
+                tripService,
+                seatService
         );
         apiServer.start();
     }
